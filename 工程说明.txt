@@ -1,0 +1,18 @@
+
+模块：
+netmonsys
+	网络过滤驱动
+
+netmonset
+	测试程序向驱动发送策略
+
+netmonlog
+	接收驱动反馈的日志
+
+注意事项：
+	netmonsys由msddk+wfp框架编写完成。驱动与应用层的交互方式为lpc+json的方式。	
+ 	因为驱动的中的json解析库不支持UNICODE所以向驱动传入UNICODE字符串时请转为utf8，再由驱动转为UNICODE编码。
+
+
+netmonset 和 netmonlog 依赖了msdk中的json库和编码转换函数。
+在接入现有项目时，可以使用自己的json库和编码转换方式。

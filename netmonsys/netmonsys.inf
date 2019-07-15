@@ -1,0 +1,52 @@
+;
+; netmonsys.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=DiskDrive
+ClassGuid={4d36e967-e325-11ce-bfc1-08002be10318}
+Provider=%ManufacturerName%
+DriverVer = 02/13/2019,17.23.5.57
+CatalogFile=netmonsys.cat
+
+[DestinationDirs]
+DefaultDestDir = 12
+ClassFilter.DriverFiles  = 12            ;%windir%\system32\drivers
+
+[SourceDisksNames]
+1 = %ClasFilt.DiskName%,,,""
+
+[SourceDisksFiles]
+netmonsys.sys = 1 
+
+[ClassFilter.DriverFiles]
+netmonsys.sys
+
+
+[DefaultInstall]
+CopyFiles = ClassFilter.DriverFiles
+
+[DefaultInstall.Services]
+AddService = netmonsys, , ClassFilter.Service
+
+
+[ClassFilter.Service]
+DisplayName    = %ClasFilt.SvcDesc%
+ServiceType    = 1		;%SERVICE_KERNEL_DRIVER%
+StartType      = 2		
+ErrorControl   = 1		;%SERVICE_ERROR_IGNORE%
+ServiceBinary  = %12%\netmonsys.sys
+
+[DefaultUninstall]
+DelFiles =ClassFilter.DriverFiles
+
+[DefaultUninstall.Services]
+DelService =netmonsys,0x00000200,,  
+
+
+[Strings]
+ManufacturerName="magj"			;TODO: Replace with your manufacturer name
+ClasFilt.DiskName="net filter Driver"
+;在注册表中显示的名字
+ClasFilt.SvcDesc	= "magj netmon filter"
